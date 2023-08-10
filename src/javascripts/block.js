@@ -64,25 +64,29 @@ export class Block {
         const allBlocks = document.querySelectorAll("tr");
         const blockCoordinates = this.blockCoordinates;
         let canProceed = true;
-        // if any of the block piece is at the bottom of the board, stop
         for (const ea of blockCoordinates) {
+          // if any of the block piece is at the bottom of the board, stop
           if (ea[0] == allBlocks.length - 1) {
             canProceed = false;
             this.blockMovement = false;
           }
-        }
-
-        // if any of the block piece touches another block, stop
-        for (const ea of blockCoordinates) {
+          // if any of the bottomest block piece touches another block next, stop
+          // bug: it will "eat" the block if the block is the same color
           if (ea[0] != allBlocks.length - 1) {
             if (
-              allBlocks[ea[0] + 1].children[ea[1]].style.backgroundColor != ""
+              allBlocks[ea[0] + 1].children[ea[1]].style.backgroundColor !=
+                "" &&
+              allBlocks[ea[0] + 1].children[ea[1]].style.backgroundColor !=
+                this.blockColor
             ) {
               canProceed = false;
               this.blockMovement = false;
             }
           }
         }
+
+        // fix bug of eating same color block
+        //
 
         if (canProceed) {
           // move the block down by 1

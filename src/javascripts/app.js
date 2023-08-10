@@ -22,25 +22,7 @@ function generateBlock() {
   return possibleBlocks[Math.floor(Math.random() * possibleBlocks.length)];
 }
 
-//let randBlock = generateBlock();
-//const newBlock = randBlock;
-
 alert("Reloaded!");
-
-// game loop
-//while (true) {
-//if (newBlock.blockMovement == false) {
-//newBlock = generateBlock();
-//newBlock.drawBlock();
-//}
-
-//newBlock.drawBlock();
-//newBlock.moveBlockDown();
-
-//if (newBlock.blockMovement == false) {
-//break;
-//}
-//}
 
 async function moveBlock() {
   // every 1 second, move block down 1
