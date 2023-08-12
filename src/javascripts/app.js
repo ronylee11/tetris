@@ -24,19 +24,24 @@ function generateBlock() {
 
 alert("Reloaded!");
 
+let newBlock;
+
 async function moveBlock() {
   // every 1 second, move block down 1
   while (newBlock.blockMovement == true) {
-    await newBlock.moveBlockDown(500);
+    await newBlock.moveBlockDown(150);
   }
-  // check if block is at last row, if yes, stop and spawn newBlock
-  if (newBlock.blockMovement == false) {
+  // if blockMovement is false, then spawn new block
+  if (newBlock.blockMovement == false && newBlock.gameOver == false) {
+    //alert("Generating new block!");
     newBlock = generateBlock();
+    newBlock.blockMovement = true; // ensure that the block can move
     newBlock.drawBlock();
     moveBlock();
   }
 }
 
-let newBlock = possibleBlocks[0];
+newBlock = generateBlock();
+//newBlock = possibleBlocks[2];
 newBlock.drawBlock();
 moveBlock();

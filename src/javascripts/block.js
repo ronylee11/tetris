@@ -4,8 +4,9 @@ export class Block {
   blockHeight;
   blockColor;
   blockType;
-  blockCoordinates;
+  blockCoordinates = [];
   blockMovement = true;
+  gameOver = false;
 
   constructor(blockWidth, blockHeight, blockColor, blockType) {
     this.blockWidth = blockWidth;
@@ -69,24 +70,36 @@ export class Block {
           if (ea[0] == allBlocks.length - 1) {
             canProceed = false;
             this.blockMovement = false;
+            //alert("Block stopped!");
+            break;
           }
           // if any of the bottomest block piece touches another block next, stop
-          // bug: it will "eat" the block if the block is the same color
           if (ea[0] != allBlocks.length - 1) {
+            // if the next block is not in blockCoordinates
             if (
-              allBlocks[ea[0] + 1].children[ea[1]].style.backgroundColor !=
-                "" &&
-              allBlocks[ea[0] + 1].children[ea[1]].style.backgroundColor !=
-                this.blockColor
+              !blockCoordinates.some(
+                (e) => JSON.stringify(e) == JSON.stringify([ea[0] + 1, ea[1]])
+              )
             ) {
-              canProceed = false;
-              this.blockMovement = false;
+              if (
+                allBlocks[ea[0] + 1].children[ea[1]].style.backgroundColor != ""
+              ) {
+                // check if the block clashes on spawn, if yes, game over
+                if (ea[0] == 0) {
+                  alert("Game over!");
+                  canProceed = false;
+                  this.blockMovement = false;
+                  this.gameOver = true;
+                  break;
+                }
+                canProceed = false;
+                this.blockMovement = false;
+                //alert("Block clashing!");
+                break;
+              }
             }
           }
         }
-
-        // fix bug of eating same color block
-        //
 
         if (canProceed) {
           // move the block down by 1
