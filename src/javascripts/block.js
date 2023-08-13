@@ -150,18 +150,23 @@ export class Block {
     const newCoordinates = () => {
       const newCoordinates = [];
       for (let i = 0; i < blockCoordinates.length; i++) {
-        if (direction == "left") {
-          newCoordinates.push([
-            blockCoordinates[i][0],
-            blockCoordinates[i][1] - 1,
-          ]);
-        } else if (direction == "right") {
-          newCoordinates.push([
-            blockCoordinates[i][0],
-            blockCoordinates[i][1] + 1,
-          ]);
+        if (
+          blockCoordinates[i][1] != 0 &&
+          blockCoordinates[i][1] != allBlocks[0].children.length - 1
+        ) {
+          if (direction == "left") {
+            newCoordinates.push([
+              blockCoordinates[i][0],
+              blockCoordinates[i][1] - 1,
+            ]);
+          } else if (direction == "right") {
+            newCoordinates.push([
+              blockCoordinates[i][0],
+              blockCoordinates[i][1] + 1,
+            ]);
+          }
         } else {
-          newCoordinates.push([blockCoordinates[i][0], blockCoordinates[i][1]]);
+          newCoordinates = blockCoordinates;
         }
       }
       return newCoordinates;

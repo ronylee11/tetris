@@ -39,6 +39,8 @@ async function moveBlock() {
     newBlock.blockMovement = true; // ensure that the block can move
     newBlock.drawBlock();
     moveBlock();
+  } else {
+    return;
   }
 }
 
