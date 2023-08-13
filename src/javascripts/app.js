@@ -45,4 +45,12 @@ async function moveBlock() {
 newBlock = generateBlock();
 //newBlock = possibleBlocks[2];
 newBlock.drawBlock();
+document.addEventListener("keydown", (e) => {
+  //alert("Key pressed!: " + e.keyCode);
+  if (e.keyCode == 37) {
+    newBlock.moveBlockX("left");
+  } else if (e.keyCode == 39) {
+    newBlock.moveBlockX("right");
+  }
+});
 moveBlock();

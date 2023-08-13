@@ -119,7 +119,7 @@ export class Block {
             // for every row
             for (let j = 0; j < allBlocks[i].children.length; j++) {
               // for every column
-              // if the block is in the blockCoordinates, change the color to white
+              // if the block is in the blockCoordinates, change the color to empty
               // if the block is in the newCoordinates, change the color to blockColor
               // if the block is not in the blockCoordinates or newCoordinates, do nothing
               for (const ea of blockCoordinates) {
@@ -144,9 +144,51 @@ export class Block {
   }
 
   // move block left and right
-  //moveBlockLeft() {
-  //const allBlocks = document.querySelectorAll("tr");
-  //}
+  moveBlockX(direction) {
+    const allBlocks = document.querySelectorAll("tr");
+    const blockCoordinates = this.blockCoordinates;
+    const newCoordinates = () => {
+      const newCoordinates = [];
+      for (let i = 0; i < blockCoordinates.length; i++) {
+        if (direction == "left") {
+          newCoordinates.push([
+            blockCoordinates[i][0],
+            blockCoordinates[i][1] - 1,
+          ]);
+        } else if (direction == "right") {
+          newCoordinates.push([
+            blockCoordinates[i][0],
+            blockCoordinates[i][1] + 1,
+          ]);
+        } else {
+          newCoordinates.push([blockCoordinates[i][0], blockCoordinates[i][1]]);
+        }
+      }
+      return newCoordinates;
+    };
+
+    // render the new block location
+    for (let i = 0; i < allBlocks.length; i++) {
+      // for every row
+      for (let j = 0; j < allBlocks[i].children.length; j++) {
+        // for every column
+        // if the block is in the blockCoordinates, change the color to empty
+        // if the block is in the newCoordinates, change the color to blockColor
+        // if the block is not in the blockCoordinates or newCoordinates, do nothing
+        for (const ea of blockCoordinates) {
+          if (JSON.stringify(ea) == JSON.stringify([i, j])) {
+            allBlocks[i].children[j].style.backgroundColor = "";
+          }
+        }
+        for (const ea of newCoordinates()) {
+          if (JSON.stringify(ea) == JSON.stringify([i, j])) {
+            allBlocks[i].children[j].style.backgroundColor = this.blockColor;
+          }
+        }
+      }
+    }
+    this.blockCoordinates = newCoordinates();
+  }
 }
 
 // block names
