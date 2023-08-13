@@ -6,7 +6,7 @@ export class Block {
   blockType;
   blockCoordinates = [];
   blockMovement = true;
-  gameOver = false;
+  static gameOver = false;
 
   constructor(blockWidth, blockHeight, blockColor, blockType) {
     this.blockWidth = blockWidth;
@@ -89,7 +89,7 @@ export class Block {
                   alert("Game over!");
                   canProceed = false;
                   this.blockMovement = false;
-                  this.gameOver = true;
+                  Block.gameOver = true;
                   break;
                 }
                 canProceed = false;

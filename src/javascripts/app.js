@@ -1,4 +1,5 @@
 import {
+  Block,
   LongBlock,
   SquareBlock,
   LBlock,
@@ -32,7 +33,7 @@ async function moveBlock() {
     await newBlock.moveBlockDown(150);
   }
   // if blockMovement is false, then spawn new block
-  if (newBlock.blockMovement == false && newBlock.gameOver == false) {
+  if (newBlock.blockMovement == false && !Block.gameOver) {
     //alert("Generating new block!");
     newBlock = generateBlock();
     newBlock.blockMovement = true; // ensure that the block can move
